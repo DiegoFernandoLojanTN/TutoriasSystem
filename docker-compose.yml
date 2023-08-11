@@ -1,0 +1,47 @@
+version: '3.10.7'
+
+services:
+  # Backend Django/python
+  web:
+    # Nombre del contenedor resultante
+    container_name: back-end
+    # Ruta en donde se encuentra el archivo Dockerfile
+    build: .
+    working_dir: /code
+    # Similar a los especificados en el Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    # Directorios del sistema anfitrión que se enlazan
+    # con los del contenedor.
+    volumes:
+      - .:/code
+    # Puerto que se expone hacia el sistema anfitrión
+    # desde el contenedor
+    ports:
+      - '8000:8000'
+    # Define la dependencia del servicio "postgres"
+    depends_on:
+      - postgres
+
+  # Database PostgreSQL
+  postgres:
+    container_name: database
+    image: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./database/postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: databaseTP
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+
+  # Frontend Vue.js
+  frontend:
+    container_name: front-end
+    build: ./frontend/vueapp
+    working_dir: /app
+    command: npm run serve
+    ports:
+      - "8080:8080"
+    depends_on:
+      - web

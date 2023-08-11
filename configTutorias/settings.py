@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #APP
-    'SistemaTutorias',
+    'backend',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #
+    'backend.LoginCheckMiddleWare.LoginCheckMiddleWare',
 ]
 
 ROOT_URLCONF = 'configTutorias.urls'
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'configTutorias.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'vueapp', 'src', 'components')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,8 +80,12 @@ WSGI_APPLICATION = 'configTutorias.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'databaseTP',
+        'USER': 'jahir',
+        'PASSWORD': 'Septiembre2002',
+        'HOST': 'pispostgres.postgres.database.azure.com',  # Por ejemplo, 'postgres' si utilizas Docker Compose.
+        'PORT': '5432',  # Puerto por defecto de PostgreSQL.
     }
 }
 
@@ -108,11 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'America/Guayaquil'
-
-USE_I18N = True
-
-USE_TZ = True
+TIME_ZONE = 'UTC'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -120,15 +122,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/TemaAzul/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/TemaAzul'),
+    os.path.join(BASE_DIR, 'frontend', 'static/TemaAzul'),  # Ruta existente
+    os.path.join(BASE_DIR, 'Frontend/vueapp/dist/static'),  # Nueva ruta de Vue.js
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend', 'media')
 
 
 #For Custom USER
-AUTH_USER_MODEL = "SistemaTutorias.CustomUser"
+AUTH_USER_MODEL = "backend.CustomUser"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -136,4 +139,4 @@ AUTH_USER_MODEL = "SistemaTutorias.CustomUser"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Registering Custom Backend "EmailBackEnd"
-AUTHENTICATION_BACKENDS = ['SistemaTutorias.EmailBackEnd.EmailBackEnd']
+AUTHENTICATION_BACKENDS = ['backend.EmailBackEnd.EmailBackEnd']
