@@ -20,5 +20,5 @@ Además, se crearon tres ambientes de desarrollo para facilitar el trabajo en eq
 ### `Contenido`
 [![imagen-2023-09-10-171335295.png](https://i.postimg.cc/XJkqKss6/imagen-2023-09-10-171335295.png)](https://postimg.cc/sQ13s4FT)
 
-[![Whats-App-Image-2023-09-10-at-16-51-54.jpg](https://i.postimg.cc/RV63yLFK/Whats-App-Image-2023-09-10-at-16-51-54.jpg)](https://postimg.cc/3dhJDp2x)
+[![imagen-2023-09-10-171512179.png](https://i.postimg.cc/Vkdkdjp4/imagen-2023-09-10-171512179.png)](https://postimg.cc/21NDtBzB)
 
